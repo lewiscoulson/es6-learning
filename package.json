@@ -1,0 +1,17 @@
+{
+  "name": "es6-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "gulp": "^3.8.11",
+    "gulp-mocha": "^2.0.1",
+    "gulp-traceur": "^0.17.1"
+  }
+}
