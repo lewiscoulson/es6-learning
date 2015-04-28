@@ -12,3 +12,9 @@ describe('Let', function() {
     assert.equal(3, result);
   });
 });
+describe('const', function() {
+  it('shoudl be able to set read only variable', function() {
+    var MAX_SIZE = 10;
+    assert.equal(10, MAX_SIZE);
+  });
+});
