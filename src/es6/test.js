@@ -15,9 +15,24 @@ describe('let', function() {
 })
 
 describe('const', function() {
-  it('shoudl be able to set read only variable', function() {
+  it('should be able to set read only variable', function() {
     const MAX_SIZE = 10;
 
     assert.equal(10, MAX_SIZE);
+  })
+})
+
+describe('destructuring', function() {
+  it('should be able to swap variable values', function() {
+    var x = 3;
+    var y = 4;
+
+    assert.equal(3, x);
+    assert.equal(4, y);
+
+    [x, y] = [y, x];
+
+    assert.equal(3, y);
+    assert.equal(4, x);
   })
 })
