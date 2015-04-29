@@ -36,3 +36,19 @@ describe('destructuring', function() {
     assert.equal(4, x);
   })
 })
+
+describe('default parameters', function() {
+  it('should be able to set default parameter', function() {
+    function doWork(name='lewis') {
+      return name;
+    }
+
+    var result = doWork();
+
+    assert.equal('lewis', result);
+
+    result = doWork('john');
+
+    assert.equal('john', result);
+  })
+})
