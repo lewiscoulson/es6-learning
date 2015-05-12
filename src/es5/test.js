@@ -44,3 +44,21 @@ describe('default parameters', function() {
     assert.equal('john', result);
   });
 });
+describe('arrows', function() {
+  it('should be able to use arrows instead of functions', function() {
+    var numbers = [1, 2, 3],
+        modified_numbers = [];
+    function doWork() {
+      modified_numbers = numbers.map((function(n) {
+        return n + 1;
+      }));
+    }
+    assert.equal(1, numbers[0]);
+    assert.equal(2, numbers[1]);
+    assert.equal(3, numbers[2]);
+    doWork();
+    assert.equal(2, modified_numbers[0]);
+    assert.equal(3, modified_numbers[1]);
+    assert.equal(4, modified_numbers[2]);
+  });
+});
