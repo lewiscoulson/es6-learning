@@ -73,3 +73,65 @@ describe('arrows', function() {
     assert.equal(4, modified_numbers[2]);
   })
 })
+
+describe('classes', function() {
+  it('should be able to create class', function() {
+    class Animal {
+      constructor(options) {
+        this.name = options.name;
+      }
+
+      move() {
+        return 'moving';
+      }
+    }
+
+    var bear = new Animal({
+      name: 'bear'
+    });
+
+    assert.isObject(bear);
+  })
+
+  it('should be able to extend class', function() {
+    class Animal {
+      constructor(options) {
+        this.name = options.name;
+      }
+
+      move() {
+        return 'moving';
+      }
+    }
+
+    class Snake extends Animal {
+      constructor() {
+        super({
+          name: 'snake'
+        });
+      }
+
+      bite() {
+        return 'biting';
+      }
+    }
+
+    var snake = new Snake();
+
+    assert.isObject(snake);
+
+    var result = snake.bite();
+
+    assert.equal('biting', result);
+
+    result = snake.move();
+
+    assert.equal('moving', result);
+
+    result = snake.name;
+
+    assert.equal('snake', result);
+  })
+})
+
+
