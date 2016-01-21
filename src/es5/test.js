@@ -20,14 +20,14 @@ describe('const', function() {
 });
 describe('destructuring', function() {
   it('should be able to swap variable values', function() {
-    var $__3,
-        $__4,
-        $__5;
+    var $__4,
+        $__5,
+        $__6;
     var x = 3;
     var y = 4;
     assert.equal(3, x);
     assert.equal(4, y);
-    ($__3 = [y, x], x = ($__4 = $__3[$traceurRuntime.toProperty(Symbol.iterator)](), ($__5 = $__4.next()).done ? void 0 : $__5.value), y = ($__5 = $__4.next()).done ? void 0 : $__5.value, $__3);
+    ($__4 = [y, x], x = ($__5 = $__4[$traceurRuntime.toProperty(Symbol.iterator)](), ($__6 = $__5.next()).done ? void 0 : $__6.value), y = ($__6 = $__5.next()).done ? void 0 : $__6.value, $__4);
     assert.equal(3, y);
     assert.equal(4, x);
   });
@@ -45,52 +45,39 @@ describe('default parameters', function() {
   });
 });
 describe('rest parameters', function() {
-  it('should be able to use rest parameter', function() {
-    function doWork(name) {
+  it('should be able to set rest parameter', function() {
+    function doWork() {
+      var name = arguments[0] !== (void 0) ? arguments[0] : 'lewis';
       for (var numbers = [],
-          $__2 = 1; $__2 < arguments.length; $__2++)
-        numbers[$__2 - 1] = arguments[$__2];
-      var result = 0;
-      numbers.forEach(function(n) {
-        result += n;
-      });
-      return result;
+          $__3 = 1; $__3 < arguments.length; $__3++)
+        numbers[$__3 - 1] = arguments[$__3];
+      var max = numbers[0];
+      return max + name;
     }
     var result = doWork('lewis', 1, 2, 3);
-    assert.equal(6, result);
+    assert.equal('1lewis', result);
   });
 });
-describe('spread', function() {
-  it('should be able to spread an array across parameters', function() {
-    function doWork(x, y, z) {
-      return x + y + z;
-    }
-    var result = doWork.apply((void 0), $traceurRuntime.spread([1, 2, 3]));
-    assert.equal(6, result);
-    var a = [3, 4, 5];
-    var b = $traceurRuntime.spread([1, 2], a);
-    assert.deepEqual([1, 2, 3, 4, 5], b);
-  });
-});
-describe('templates', function() {
-  it('should be able to use templates using variables', function() {
-    var n = 'lewis';
+describe('template literals', function() {
+  it('should be able to set template literals', function() {
     function doWork() {
-      return ("my name is " + n);
+      var name = arguments[0] !== (void 0) ? arguments[0] : 'lewis';
+      var age = arguments[1] !== (void 0) ? arguments[1] : 27;
+      return (name + " is " + age + " years old!");
     }
     var result = doWork();
-    assert.equal('my name is lewis', result);
+    assert.equal('lewis is 27 years old!', result);
   });
 });
 describe('arrows', function() {
   it('should be able to use arrows instead of functions', function() {
-    var $__0 = this;
+    var $__2 = this;
     var numbers = [1, 2, 3],
         modified_numbers = [];
     function doWork() {
-      modified_numbers = numbers.map((function(n) {
+      modified_numbers = numbers.map(function(n) {
         return n + 1;
-      }));
+      });
     }
     assert.equal(1, numbers[0]);
     assert.equal(2, numbers[1]);
@@ -103,64 +90,39 @@ describe('arrows', function() {
       return x + y;
     };
     assert.equal(3, add(1, 2));
-    var addNew = (function(x, y) {
+    var addNew = function(x, y) {
       return x + y;
-    });
-    var square = (function(x) {
+    };
+    var square = function(x) {
       return x * x;
-    });
-    var returnNumber = (function() {
+    };
+    var returnNumber = function() {
       return 5;
-    });
-    var addNewMultiline = (function(x, y) {
+    };
+    var addNewMultiline = function(x, y) {
       var temp = x + y;
       return temp;
-    });
+    };
     assert.equal(3, addNew(1, 2));
     this.name = 'lewis';
-    var tryIt = (function() {
-      return $__0.name;
-    });
+    var tryIt = function() {
+      return $__2.name;
+    };
     assert.equal('lewis', tryIt());
   });
 });
 describe('classes', function() {
   it('should be able to create class', function() {
-    var Animal = (function() {
+    var Animal = function() {
       function Animal(options) {
         this.name = options.name;
       }
       return ($traceurRuntime.createClass)(Animal, {move: function() {
           return 'moving';
         }}, {});
-    }());
+    }();
     var bear = new Animal({name: 'bear'});
     assert.isObject(bear);
   });
-  it('should be able to extend class', function() {
-    var Animal = (function() {
-      function Animal(options) {
-        this.name = options.name;
-      }
-      return ($traceurRuntime.createClass)(Animal, {move: function() {
-          return 'moving';
-        }}, {});
-    }());
-    var Snake = (function($__super) {
-      function Snake() {
-        $traceurRuntime.superConstructor(Snake).call(this, {name: 'snake'});
-      }
-      return ($traceurRuntime.createClass)(Snake, {bite: function() {
-          return 'biting';
-        }}, {}, $__super);
-    }(Animal));
-    var snake = new Snake();
-    assert.isObject(snake);
-    var result = snake.bite();
-    assert.equal('biting', result);
-    result = snake.move();
-    assert.equal('moving', result);
-    result = snake.name;
-    assert.equal('snake', result);
-  });
+  it('should be able to extend class', function() {});
 });

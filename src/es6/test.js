@@ -56,53 +56,31 @@ describe('default parameters', function() {
 })
 
 describe('rest parameters', function() {
-  it('should be able to use rest parameter', function() {
-    function doWork(name, ...numbers) {
-      let result = 0;
+  it('should be able to set rest parameter', function() {
+    function doWork(name='lewis', ...numbers) {
+      let max = numbers[0];
 
-      numbers.forEach(function(n) {
-        result += n;
-      });
-
-      return result;
+      return max + name;
     }
 
-    let result = doWork('lewis', 1, 2, 3);
+    var result = doWork('lewis', 1, 2, 3);
 
-    assert.equal(6, result);
+    assert.equal('1lewis', result);
   })
 })
 
-describe('spread', function() {
-  it('should be able to spread an array across parameters', function() {
-    function doWork(x, y, z) {
-      return x + y + z;
-    }
-
-    var result = doWork(...[1, 2, 3]);
-
-    assert.equal(6, result);
-
-    var a = [3, 4, 5];
-    var b = [1, 2, ...a];
-
-    assert.deepEqual([1, 2, 3, 4, 5], b);
-  })
-})
-
-describe('templates', function() {
-  it('should be able to use templates using variables', function() {
-    let n = 'lewis';
-
-    function doWork() {
-      return `my name is ${n}`;
+describe('template literals', function() {
+  it('should be able to set template literals', function() {
+    function doWork(name='lewis', age=27) {
+      return `${name} is ${age} years old!`;
     }
 
     var result = doWork();
 
-    assert.equal('my name is lewis', result);
+    assert.equal('lewis is 27 years old!', result);
   })
 })
+
 
 
 
@@ -199,43 +177,7 @@ describe('classes', function() {
   })
 
   it('should be able to extend class', function() {
-    class Animal {
-      constructor(options) {
-        this.name = options.name;
-      }
 
-      move() {
-        return 'moving';
-      }
-    }
-
-    class Snake extends Animal {
-      constructor() {
-        super({
-          name: 'snake'
-        });
-      }
-
-      bite() {
-        return 'biting';
-      }
-    }
-
-    var snake = new Snake();
-
-    assert.isObject(snake);
-
-    var result = snake.bite();
-
-    assert.equal('biting', result);
-
-    result = snake.move();
-
-    assert.equal('moving', result);
-
-    result = snake.name;
-
-    assert.equal('snake', result);
   })
 })
 
