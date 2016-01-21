@@ -53,6 +53,33 @@ describe('default parameters', function() {
   })
 })
 
+describe('rest parameters', function() {
+  it('should be able to set rest parameter', function() {
+    function doWork(name='lewis', ...numbers) {
+      let max = numbers[0];
+
+      return max + name;
+    }
+
+    var result = doWork('lewis', 1, 2, 3);
+
+    assert.equal('1lewis', result);
+  })
+})
+
+describe('template literals', function() {
+  it('should be able to set template literals', function() {
+    function doWork(name='lewis', age=27) {
+      return `${name} is ${age} years old!`;
+    }
+
+    var result = doWork();
+
+    assert.equal('lewis is 27 years old!', result);
+  })
+})
+
+
 describe('arrows', function() {
   it('should be able to use arrows instead of functions', function() {
     var numbers = [1, 2, 3],
@@ -97,6 +124,14 @@ describe('classes', function() {
     class Animal {
       constructor(options) {
         this.name = options.name;
+      }
+
+      get name() {
+        return this.name;
+      }
+
+      set name(name) {
+        this.name = name;
       }
 
       move() {
