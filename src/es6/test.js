@@ -1,5 +1,7 @@
 var assert = require("chai").assert
 
+// variables and parameters
+
 describe('let', function() {
   it('should be able to use block scope', function() {
     function doWork(flag) {
@@ -38,7 +40,7 @@ describe('destructuring', function() {
 })
 
 describe('default parameters', function() {
-  it('should be able to set default parameter', function() {
+  it('should be able to use default parameter', function() {
     function doWork(name='lewis') {
       return name;
     }
@@ -52,6 +54,60 @@ describe('default parameters', function() {
     assert.equal('john', result);
   })
 })
+
+describe('rest parameters', function() {
+  it('should be able to use rest parameter', function() {
+    function doWork(name, ...numbers) {
+      let result = 0;
+
+      numbers.forEach(function(n) {
+        result += n;
+      });
+
+      return result;
+    }
+
+    let result = doWork('lewis', 1, 2, 3);
+
+    assert.equal(6, result);
+  })
+})
+
+describe('spread', function() {
+  it('should be able to spread an array across parameters', function() {
+    function doWork(x, y, z) {
+      return x + y + z;
+    }
+
+    var result = doWork(...[1, 2, 3]);
+
+    assert.equal(6, result);
+
+    var a = [3, 4, 5];
+    var b = [1, 2, ...a];
+
+    assert.deepEqual([1, 2, 3, 4, 5], b);
+  })
+})
+
+describe('templates', function() {
+  it('should be able to use templates using variables', function() {
+    let n = 'lewis';
+
+    function doWork() {
+      return `my name is ${n}`;
+    }
+
+    var result = doWork();
+
+    assert.equal('my name is lewis', result);
+  })
+})
+
+
+
+
+// functional programming
 
 describe('arrows', function() {
   it('should be able to use arrows instead of functions', function() {
@@ -71,8 +127,57 @@ describe('arrows', function() {
     assert.equal(2, modified_numbers[0]);
     assert.equal(3, modified_numbers[1]);
     assert.equal(4, modified_numbers[2]);
+
+    let add = function(x, y) {
+      return x + y;
+    }
+
+    assert.equal(3, add(1, 2));
+
+    let addNew = (x, y) => x + y;
+
+    let square = x => x * x;
+
+    let returnNumber = () => 5;
+
+    let addNewMultiline = (x, y) => {
+      let temp = x + y;
+      return temp;
+    };
+
+    assert.equal(3, addNew(1, 2));
+
+
+    // lexical scope - no need for self with arrow functions
+
+    this.name = 'lewis';
+
+    let tryIt = () => {
+      return this.name;
+    };
+
+    assert.equal('lewis', tryIt());
   })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// classes
 
 describe('classes', function() {
   it('should be able to create class', function() {
